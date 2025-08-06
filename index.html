@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- <script src="https://oralia-operations.s3.us-east-1.amazonaws.com/config/oralia-chat-interface/uat/uat-chat.js"></script> -->
+    <script src="https://stellular-sundae-94c823.netlify.app/oralia-chat-widget.js"></script>
+    <div id="my-oralia-widget"></div>
+    <script>
+      window.renderOraliaChatWidget('my-oralia-widget', {
+        fileDetection: true,
+        mode: 'icon',
+        theme: 'teal',
+        botName: 'Oralia',
+        // tenantUid: '19f70f57-632a-4bb2-a34c-a1f7895dfddd',
+        // chatbotUid: 'd02f3fa6-13ed-44d8-a94a-5352a1f935a1'
+        tenantUid: '1',
+        chatbotUid: 'f2513c35-c3be-43fe-b7d6-eebaf834fbc2'
+      });
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
