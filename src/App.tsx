@@ -10,7 +10,15 @@ import Dashboard from './components/Dashboard';
 import './App.css';
 
 const App: React.FC = () => {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { 
+    isAuthenticated, 
+    orderDetails, 
+    login, 
+    logout, 
+    addOrder, 
+    removeOrder, 
+    updateOrderDetails 
+  } = useAuth();
 
   return (
     <div className="app">
@@ -21,7 +29,13 @@ const App: React.FC = () => {
       
       <main className="app-main">
         {isAuthenticated ? (
-          <Dashboard onLogout={logout} />
+          <Dashboard 
+            onLogout={logout}
+            orderDetails={orderDetails}
+            addOrder={addOrder}
+            removeOrder={removeOrder}
+            updateOrderDetails={updateOrderDetails}
+          />
         ) : (
           <Login onLogin={login} />
         )}

@@ -9,49 +9,28 @@ import '../types/global';
 
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [orderDetails, setOrderDetails] = useState([
+    {
+      orderNumber: "97547299642970",
+      productTitle: "Wireless Bluetooth Headphones"
+    },
+    {
+      orderNumber: "1053883",
+      productTitle: "Gaming Mechanical Keyboard"
+    }
+    
+    // Add more orders here as needed
+  ]);
 
   // Initialize the global window object
   const initializeGlobalState = (authState: boolean) => {
     if (authState) {
-      // When logged in - set all data
+      // When logged in - set all data using dynamic orderDetails state
       window.__Oralia__ = {
         context: {
           isAuthenticated: true,
           userId: "1621989",
-          orderDetails: [
-            {
-              orderNumber: "97547299642970",
-              productTitle: "Wireless Bluetooth Headphones"
-            },
-            // {
-            //   orderNumber: "1053883",
-            //   productTitle: "Gaming Mechanical Keyboard"
-            // },
-            // {
-            //   orderNumber: "59221960870839",
-            //   productTitle: "Smartphone Case with Stand"
-            // },
-            // {
-            //   orderNumber: "1052776",
-            //   productTitle: "USB-C Charging Cable"
-            // },
-            // {
-            //   orderNumber: "1052865",
-            //   productTitle: "Portable Power Bank 10000mAh"
-            // },
-            // {
-            //   orderNumber: "1052998",
-            //   productTitle: "Wireless Mouse Pad"
-            // },
-            // {
-            //   orderNumber: "207629G0002",
-            //   productTitle: "LED Desk Lamp with Touch Control"
-            // },
-            // {
-            //   orderNumber: "1575352186",
-            //   productTitle: "Bluetooth Speaker Waterproof"
-            // }
-          ],
+          orderDetails: orderDetails,
         },
       };
     } else {
@@ -84,15 +63,34 @@ const useAuth = () => {
     initializeGlobalState(false);
   };
 
-  // Update global state whenever authentication state changes
+  // Function to add a new order
+  const addOrder = (orderNumber: string, productTitle: string) => {
+    setOrderDetails(prev => [...prev, { orderNumber, productTitle }]);
+  };
+
+  // Function to remove an order by orderNumber
+  const removeOrder = (orderNumber: string) => {
+    setOrderDetails(prev => prev.filter(order => order.orderNumber !== orderNumber));
+  };
+
+  // Function to update all orderDetails
+  const updateOrderDetails = (newOrderDetails: Array<{orderNumber: string, productTitle: string}>) => {
+    setOrderDetails(newOrderDetails);
+  };
+
+  // Update global state whenever authentication state OR orderDetails changes
   useEffect(() => {
     initializeGlobalState(isAuthenticated);
-  }, [isAuthenticated]);
+  }, [isAuthenticated, orderDetails]);
 
   return {
     isAuthenticated,
+    orderDetails,
     login,
     logout,
+    addOrder,
+    removeOrder,
+    updateOrderDetails,
   };
 };
 
